@@ -1,12 +1,13 @@
 # Changes here will be overwritten by Copier; do NOT edit manually
-_commit: v0.12.0
+_commit: v0.14.3
 _src_path: gh:entelecheia/hyperfast-docker-template
 app_clone_dirname: FastChat
 app_install_root: /workspace/projects
-app_server_name: app
+app_service_name: app
 app_source_branch: main
 app_source_repo: ''
 author: Young Joon Lee
+build_images_from_dockerfile: true
 clone_source_code: true
 container_workspace_root: /workspace
 copy_scripts_dir: true
@@ -20,6 +21,7 @@ docker_container_username: app
 docker_project_name: fastchat
 docker_registry: ghcr.io
 docker_run_command: bash
+docker_service_name: workspace
 docker_timezone: Asia/Seoul
 docker_username: entelecheia
 email: entelecheia@hotmail.com
@@ -40,9 +42,10 @@ project_license: MIT
 project_short_description: A Container for [FastChat](https://github.com/lm-sys/FastChat)
 ssh_host_port: 2222
 ssh_port: 22
-start_jupyter: false
-start_ssh_service: false
 use_deploy_workflows: true
+use_jupyter: true
+use_ssh_service: true
+use_web_service: true
 web_service_host_port: 18000
 web_service_port: 8000
 

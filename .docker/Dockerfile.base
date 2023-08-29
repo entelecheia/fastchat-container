@@ -15,7 +15,7 @@ RUN apt-get update --fix-missing \
     # !! Without python3-launchpadlib, software-properties-common fails to install
     python3-launchpadlib software-properties-common \
     locales locales-all fontconfig fonts-nanum python3.9 python3.9-distutils \
-    tzdata  \
+    tzdata openssh-server \
     # Adds PPA for the latest git version
     && add-apt-repository ppa:git-core/ppa -y \
     && apt-get update \

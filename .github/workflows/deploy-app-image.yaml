@@ -35,6 +35,12 @@ jobs:
         with:
           env-file: ./.docker/docker.version
 
+      - name: Common environment Variables from Dotenv
+        uses: c-py/action-dotenv-to-setenv@v4
+        with:
+          # use branch name as suffix for dotfile
+          env-file: ./.docker/docker.common.env
+
       - name: Environment Variables from Dotenv
         uses: c-py/action-dotenv-to-setenv@v4
         with:
@@ -55,7 +61,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ env.APP_VERSION }}-${{ env.VARIANT }}
+            type=raw,value=${{ env.IMAGE_VERSION }}-${{ env.IMAGE_VARIANT }}
             # set latest tag for main branch
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
@@ -69,9 +75,9 @@ jobs:
           file: ./.docker/Dockerfile.app
           build-args: |
             ARG_BUILD_FROM=${{ env.BUILD_FROM }}
-            ARG_USERNAME=${{ env.USERNAME }}
-            ARG_USER_UID=${{ env.USER_UID }}
-            ARG_USER_GID=${{ env.USER_GID }}
+            ARG_USERNAME=${{ env.CONTAINER_USERNAME }}
+            ARG_USER_UID=${{ env.CONTAINER_USER_UID }}
+            ARG_USER_GID=${{ env.CONTAINER_USER_GID }}
             ARG_WORKSPACE_ROOT=${{ env.CONTAINER_WORKSPACE_ROOT }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
