@@ -15,7 +15,7 @@ RUN apt-get update --fix-missing \
     # !! Without python3-launchpadlib, software-properties-common fails to install
     python3-launchpadlib software-properties-common \
     locales locales-all fontconfig fonts-nanum python3.9 python3.9-distutils \
-    tzdata openssh-server \
+    tzdata  \
     # Adds PPA for the latest git version
     && add-apt-repository ppa:git-core/ppa -y \
     && apt-get update \
@@ -23,8 +23,9 @@ RUN apt-get update --fix-missing \
     # Cleans up unnecessary packages to reduce image size
     && apt-get autoremove -y \
     && apt-get clean -y
-# Installs pip
-RUN RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+# Installs the latest pip and setuptools from PyPI
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 # Sets up the locale to en_US.UTF-8
 RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || true
 # Fixes sudo error related to core dumps
