@@ -2,7 +2,7 @@ version: "3"
 
 services:
   # Defines a service name
-  workspace:
+  fastchat-api-server:
     build:
       # Sets the build context to the current directory
       context: .
@@ -45,9 +45,6 @@ services:
       SYSTEM_HOSTNAME: $CONTAINER_HOSTNAME
       IMAGE_VARIANT: $IMAGE_VARIANT
       GIT_COMMIT_GPGSIGN: $GIT_COMMIT_GPGSIGN
-      HOST_JUPYTER_PORT: $HOST_JUPYTER_PORT
-      JUPYTER_PORT: $JUPYTER_PORT
-      JUPYTER_TOKEN: $JUPYTER_TOKEN
     ulimits:
       # Sets the stack size and memory lock limits
       stack: 67108864
@@ -56,8 +53,6 @@ services:
     ipc: $CONTAINER_IPC
     ports:
       # Maps the container's SSH and Web service ports to the host's ports
-      - "$HOST_SSH_PORT:$SSH_PORT"
-      - "$HOST_JUPYTER_PORT:$JUPYTER_PORT"
       - "$HOST_WEB_SVC_PORT:$WEB_SVC_PORT"
     volumes:
       # Maps directories from the host to the container

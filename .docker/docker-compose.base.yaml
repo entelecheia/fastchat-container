@@ -2,7 +2,7 @@ version: "3"
 
 services:
   # Defines a service name
-  workspace:
+  fastchat-api-server:
     build:
       # Sets the build context to the current directory
       context: .
