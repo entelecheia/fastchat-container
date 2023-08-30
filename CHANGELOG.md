@@ -1,5 +1,12 @@
 <!--next-version-placeholder-->
 
+## v0.1.3 (2023-08-30)
+
+### Fix
+
+* **docker:** Update requirements in docker scripts ([`cdc3655`](https://github.com/entelecheia/fastchat-container/commit/cdc3655fbf5071a503d0a4f913c0a95bad12a13c))
+* **dockerfile:** Use sudo for pip installation ([`604bf98`](https://github.com/entelecheia/fastchat-container/commit/604bf98c0372f59f9a745cd72bd0d5e47e67d178))
+
 ## v0.1.2 (2023-08-30)
 
 ### Fix
