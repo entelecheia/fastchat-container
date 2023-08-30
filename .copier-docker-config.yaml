@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; do NOT edit manually
-_commit: v0.15.1
+_commit: v0.15.2
 _src_path: gh:entelecheia/hyperfast-docker-template
 app_clone_dirname: FastChat
 app_install_root: /workspace/projects
