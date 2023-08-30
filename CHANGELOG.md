@@ -1,5 +1,11 @@
 <!--next-version-placeholder-->
 
+## v0.1.6 (2023-08-30)
+
+### Fix
+
+* **docker:** Remove train from fschat requirements in docker scripts ([`328aed2`](https://github.com/entelecheia/fastchat-container/commit/328aed21fb8b39263fb325bcea56b0735c1d4f20))
+
 ## v0.1.5 (2023-08-30)
 
 ### Fix
