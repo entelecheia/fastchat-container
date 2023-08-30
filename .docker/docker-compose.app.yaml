@@ -35,7 +35,7 @@ services:
         ARG_USER_GID: $CONTAINER_USER_GID
         ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
     volumes:
-      - "$HOST_MODEL_CACHE_DIR/huggingface:/home/$USERNAME/.cache/huggingface"
+      - "$HOST_HUGGINGFACE_CACHE_DIR:/home/$USERNAME/.cache/huggingface"
     image: $IMAGE_NAME:$IMAGE_TAG
     entrypoint:
       - "python3.9"
