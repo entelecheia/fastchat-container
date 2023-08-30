@@ -1,5 +1,14 @@
 <!--next-version-placeholder-->
 
+## v0.1.7 (2023-08-30)
+
+### Fix
+
+* **.docker:** Add support for creating host directories ([`f6207d5`](https://github.com/entelecheia/fastchat-container/commit/f6207d5d5526df896d99f5491cbcefe2e4432a95))
+* **docker:** Add Huggingface cache directory to docker app env ([`6c799e9`](https://github.com/entelecheia/fastchat-container/commit/6c799e9fecd7a6fa006cfcccf9e8b3bd3c069b86))
+* **docker:** Change volume mapping for huggingface cache ([`998305e`](https://github.com/entelecheia/fastchat-container/commit/998305ecc84784b0e7c3f6740c41f5e6f9761185))
+* **docker:** Implement dynamic environment variables, update fastchat image details, change fastchat controller address ([`e837407`](https://github.com/entelecheia/fastchat-container/commit/e837407a5d03bfdb555f67d2c217487ab4f28a6e))
+
 ## v0.1.6 (2023-08-30)
 
 ### Fix
