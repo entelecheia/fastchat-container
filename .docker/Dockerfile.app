@@ -42,17 +42,5 @@ COPY ./.docker/scripts/ ./scripts/
 # Installs Python dependencies listed in requirements.txt
 RUN pip install -r ./scripts/requirements.txt
 
-# Setting ARGs and ENVs for Stable-Diffusion-WebUI GitHub repository
-ARG ARG_APP_SOURCE_REPO=""
-ARG ARG_APP_INSTALL_ROOT="/workspace/projects"
-ARG ARG_APP_CLONE_DIRNAME="FastChat"
-ARG ARG_APP_SOURCE_BRANCH="main"
-ARG ARG_APP_SERVICE_NAME="app"
-ENV APP_SOURCE_REPO $ARG_APP_SOURCE_REPO
-ENV APP_INSTALL_ROOT $ARG_APP_INSTALL_ROOT
-ENV APP_CLONE_DIRNAME $ARG_APP_CLONE_DIRNAME
-ENV APP_SOURCE_BRANCH $ARG_APP_SOURCE_BRANCH
-ENV APP_SERVICE_NAME $ARG_APP_SERVICE_NAME
-
 # Specifies the command that will be executed when the container is run
 CMD ["bash"]
