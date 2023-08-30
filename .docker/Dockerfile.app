@@ -47,4 +47,4 @@ WORKDIR $WORKSPACE_ROOT
 # Copies scripts from host into the image
 COPY ./.docker/scripts/ ./scripts/
 # Installs Python dependencies listed in requirements.txt
-RUN pip install -r ./scripts/requirements.txt
+RUN sudo pip install -r ./scripts/requirements.txt
