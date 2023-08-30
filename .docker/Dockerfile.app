@@ -46,5 +46,6 @@ ENV TZ="Asia/Seoul"
 WORKDIR $WORKSPACE_ROOT
 # Copies scripts from host into the image
 COPY ./.docker/scripts/ ./scripts/
+RUN sudo pip install packaging
 # Installs Python dependencies listed in requirements.txt
 RUN sudo pip install -r ./scripts/requirements.txt
