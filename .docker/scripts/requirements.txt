@@ -1,1 +1,1 @@
-fschat[model_worker,webui,train,llm_judge]
+fschat[model_worker,webui,llm_judge]
