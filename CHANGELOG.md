@@ -1,5 +1,11 @@
 <!--next-version-placeholder-->
 
+## v0.1.1 (2023-08-30)
+
+### Fix
+
+* **docker:** Update python pip setup in Dockerfile.base ([`b3686a2`](https://github.com/entelecheia/fastchat-container/commit/b3686a2e26e08c0278e3b677d699192606638afa))
+
 ## v0.1.0 (2023-08-30)
 
 ### Feature
