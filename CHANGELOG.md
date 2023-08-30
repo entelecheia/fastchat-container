@@ -1,5 +1,11 @@
 <!--next-version-placeholder-->
 
+## v0.1.5 (2023-08-30)
+
+### Fix
+
+* **docker:** Add packaging module to Dockerfile.app ([`f4579d7`](https://github.com/entelecheia/fastchat-container/commit/f4579d7062d5757360ff1608d0700b8a6de0b964))
+
 ## v0.1.4 (2023-08-30)
 
 ### Fix
