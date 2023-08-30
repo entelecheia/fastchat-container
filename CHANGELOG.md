@@ -1,5 +1,11 @@
 <!--next-version-placeholder-->
 
+## v0.1.2 (2023-08-30)
+
+### Fix
+
+* **docker:** Add .local/bin to PATH ([`445e392`](https://github.com/entelecheia/fastchat-container/commit/445e3925ce2dd3846457010b9f3b64e45d74fc6a))
+
 ## v0.1.1 (2023-08-30)
 
 ### Fix
