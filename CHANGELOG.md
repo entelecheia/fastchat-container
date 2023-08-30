@@ -1,5 +1,11 @@
 <!--next-version-placeholder-->
 
+## v0.1.4 (2023-08-30)
+
+### Fix
+
+* **.docker/scripts:** Add packaging to requirements.txt ([`e8e62ba`](https://github.com/entelecheia/fastchat-container/commit/e8e62bae1584a69901460e0e5f47bfa2d5d7c801))
+
 ## v0.1.3 (2023-08-30)
 
 ### Fix
