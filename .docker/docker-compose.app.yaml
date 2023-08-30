@@ -35,8 +35,8 @@ services:
         ARG_USER_GID: $CONTAINER_USER_GID
         ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
     volumes:
-      - "$HOME/.cache/huggingface:/home/$USERNAME/.cache/huggingface"
-    image: fastchat:latest
+      - "$HOST_HUGGINGFACE_CACHE_DIR:/home/$USERNAME/.cache/huggingface"
+    image: $IMAGE_NAME:$IMAGE_TAG
     entrypoint:
       - "python3.9"
       - "-m"
@@ -81,7 +81,7 @@ services:
       - "-m"
       - "fastchat.serve.openai_api_server"
       - "--controller-address"
-      - "http://fastchat-controller:21001"
+      - "http://fastchat-controller:$CONTROLLER_PORT"
       - "--host"
       - "0.0.0.0"
       - "--port"

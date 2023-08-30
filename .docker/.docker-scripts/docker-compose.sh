@@ -52,6 +52,12 @@ else
     echo "Network ${CONTAINER_NETWORK_NAME} already exists."
 fi
 
+# prepare host directories
+if [[ -n "${HOST_HUGGINGFACE_CACHE_DIR}" ]] && [[ ! -d "${HOST_HUGGINGFACE_CACHE_DIR}" ]]; then
+    echo "Creating host directory ${HOST_HUGGINGFACE_CACHE_DIR}"
+    mkdir -p "${HOST_HUGGINGFACE_CACHE_DIR}"
+fi
+
 # run docker-compose
 if [ "${COMMAND}" == "push" ]; then
     docker push "${CONTAINTER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
