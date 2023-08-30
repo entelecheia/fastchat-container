@@ -1,0 +1,94 @@
+version: "3.9"
+
+services:
+  fastchat-controller:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.app
+      args:
+        ARG_BUILD_FROM: $BUILD_FROM
+        ARG_USERNAME: $CONTAINER_USERNAME
+        ARG_USER_UID: $CONTAINER_USER_UID
+        ARG_USER_GID: $CONTAINER_USER_GID
+        ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
+    # Sets the image name for the built image
+    image: $IMAGE_NAME:$IMAGE_TAG
+    ports:
+      - "$CONTROLLER_PORT:$CONTROLLER_PORT"
+    entrypoint:
+      - "python3.9"
+      - "-m"
+      - "fastchat.serve.controller"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "$CONTROLLER_PORT"
+
+  fastchat-model-worker:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.app
+      args:
+        ARG_BUILD_FROM: $BUILD_FROM
+        ARG_USERNAME: $CONTAINER_USERNAME
+        ARG_USER_UID: $CONTAINER_USER_UID
+        ARG_USER_GID: $CONTAINER_USER_GID
+        ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
+    volumes:
+      - "$HOME/.cache/huggingface:/home/$USERNAME/.cache/huggingface"
+    image: fastchat:latest
+    entrypoint:
+      - "python3.9"
+      - "-m"
+      - "fastchat.serve.model_worker"
+      - "--model-names"
+      - "${FASTCHAT_WORKER_MODEL_NAMES:-vicuna-7b-v1.3}"
+      - "--model-path"
+      - "${FASTCHAT_WORKER_MODEL_PATH:-lmsys/vicuna-7b-v1.3}"
+      - "--worker-address"
+      - "http://fastchat-model-worker:$MODEL_WORKER_PORT"
+      - "--controller-address"
+      - "http://fastchat-controller:$CONTROLLER_PORT"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "$MODEL_WORKER_PORT"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            # Reserves the specified GPU for the container
+            - driver: nvidia
+              device_ids: ["${CUDA_DEVICE_ID}"]
+              capabilities: [gpu]
+
+  fastchat-api-server:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.app
+      args:
+        ARG_BUILD_FROM: $BUILD_FROM
+        ARG_USERNAME: $CONTAINER_USERNAME
+        ARG_USER_UID: $CONTAINER_USER_UID
+        ARG_USER_GID: $CONTAINER_USER_GID
+        ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
+    # Sets the image name for the built image
+    image: $IMAGE_NAME:$IMAGE_TAG
+    ports:
+      - "$HOST_WEB_SVC_PORT:$WEB_SVC_PORT"
+    entrypoint:
+      - "python3.9"
+      - "-m"
+      - "fastchat.serve.openai_api_server"
+      - "--controller-address"
+      - "http://fastchat-controller:21001"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "$WEB_SVC_PORT"
+
+networks:
+  default:
+    # Sets the name of the default network and makes it external
+    name: $CONTAINER_NETWORK_NAME
+    external: true
