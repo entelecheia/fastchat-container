@@ -1,1 +1,2 @@
+packaging
 fschat[model_worker,webui,train,llm_judge]
