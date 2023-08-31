@@ -1,5 +1,17 @@
 <!--next-version-placeholder-->
 
+## v0.2.0 (2023-08-31)
+
+### Feature
+
+* **docker:** Add detached mode for launching docker app ([`2fad764`](https://github.com/entelecheia/fastchat-container/commit/2fad764eda3d67c0b0954ddfbe2fa801446b88aa))
+
+### Fix
+
+* **docker:** Change directory name from HUGGINGFACE_CACHE_DIR to HF_HOME ([`0fc1195`](https://github.com/entelecheia/fastchat-container/commit/0fc11951941487c32b4d213dafc84656363bd676))
+* **docker:** Organize and rename environment variables ([`5315633`](https://github.com/entelecheia/fastchat-container/commit/53156334943707ebcf43eaefa66264bb9765f9d6))
+* **docker:** Correct typo in variable name ([`b687cfd`](https://github.com/entelecheia/fastchat-container/commit/b687cfd4ddd3554b246b51f267dd69b3d9819b30))
+
 ## v0.1.7 (2023-08-30)
 
 ### Fix
