@@ -1,5 +1,12 @@
 <!--next-version-placeholder-->
 
+## v0.3.0 (2023-08-31)
+
+### Feature
+
+* **docker:** Update controller and API service ports, add new fastchat-web-server service ([`c0d37a8`](https://github.com/entelecheia/fastchat-container/commit/c0d37a8332a5805bf045a30046371e8a9830df38))
+* **docker:** Add API service port configurations ([`2e4ef0a`](https://github.com/entelecheia/fastchat-container/commit/2e4ef0a7832c0f146162f2b129c31b036e6edf16))
+
 ## v0.2.0 (2023-08-31)
 
 ### Feature
