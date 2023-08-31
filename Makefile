@@ -83,34 +83,38 @@ init-project: initialize ## initialize the project (Warning: do this only once!)
 
 reinit-project: install-copier ## reinitialize the project (Warning: this may overwrite existing files!)
 	@bash -c 'args=(); while IFS= read -r file; do args+=("--skip" "$$file"); done < .copierignore; copier copy "$${args[@]}" --answers-file .copier-docker-config.yaml --trust gh:entelecheia/hyperfast-docker-template .'
+
 ##@ Docker
 
 docker-login: ## login to docker
 	@bash .docker/.docker-scripts/docker-compose.sh login
 
 docker-build-base: ## build the docker base image
-	@bash .docker/.docker-scripts/docker-compose.sh build base
+	@bash .docker/.docker-scripts/docker-compose.sh build --variant base
 
 docker-build-app: ## build the docker app image
-	@bash .docker/.docker-scripts/docker-compose.sh build app
+	@bash .docker/.docker-scripts/docker-compose.sh build --variant app
 
 docker-config-base: ## show the docker base config
-	@bash .docker/.docker-scripts/docker-compose.sh config base
+	@bash .docker/.docker-scripts/docker-compose.sh config --variant base
 
 docker-config-app: ## show the docker app config
-	@bash .docker/.docker-scripts/docker-compose.sh config app
+	@bash .docker/.docker-scripts/docker-compose.sh config --variant app
 
 docker-push-base: ## push the docker base image
-	@bash .docker/.docker-scripts/docker-compose.sh push base
+	@bash .docker/.docker-scripts/docker-compose.sh push --variant base
 
 docker-push-app: ## push the docker app image
-	@bash .docker/.docker-scripts/docker-compose.sh push app
+	@bash .docker/.docker-scripts/docker-compose.sh push --variant app
 
 docker-run-base: ## run the docker base image
-	@bash .docker/.docker-scripts/docker-compose.sh run base
+	@bash .docker/.docker-scripts/docker-compose.sh run --variant base
 
 docker-run-app: ## run the docker app image
-	@bash .docker/.docker-scripts/docker-compose.sh run app
+	@bash .docker/.docker-scripts/docker-compose.sh run --variant app
 
 docker-up-app: ## launch the docker app image
-	@bash .docker/.docker-scripts/docker-compose.sh up app
+	@bash .docker/.docker-scripts/docker-compose.sh up --variant app
+
+docker-up-app-detach: ## launch the docker app image in detached mode
+	@bash .docker/.docker-scripts/docker-compose.sh up --variant app --detach
