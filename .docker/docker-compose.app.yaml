@@ -25,18 +25,9 @@ services:
       - "$CONTAINER_CONTROLLER_PORT"
 
   fastchat-model-worker:
-    build:
-      context: .
-      dockerfile: .docker/Dockerfile.app
-      args:
-        ARG_BUILD_FROM: $BUILD_FROM
-        ARG_USERNAME: $CONTAINER_USERNAME
-        ARG_USER_UID: $CONTAINER_USER_UID
-        ARG_USER_GID: $CONTAINER_USER_GID
-        ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
+    image: $IMAGE_NAME:$IMAGE_TAG
     volumes:
       - "$HOST_HF_HOME:/home/$USERNAME/.cache/huggingface"
-    image: $IMAGE_NAME:$IMAGE_TAG
     entrypoint:
       - "python3.9"
       - "-m"
@@ -48,7 +39,7 @@ services:
       - "--worker-address"
       - "http://fastchat-model-worker:$CONTAINER_MODEL_WORKER_PORT"
       - "--controller-address"
-      - "http://fastchat-controller:$CONTAINER_MODEL_WORKER_PORT"
+      - "http://fastchat-controller:$CONTAINER_CONTROLLER_PORT"
       - "--host"
       - "0.0.0.0"
       - "--port"
@@ -63,24 +54,29 @@ services:
               capabilities: [gpu]
 
   fastchat-api-server:
-    build:
-      context: .
-      dockerfile: .docker/Dockerfile.app
-      args:
-        ARG_BUILD_FROM: $BUILD_FROM
-        ARG_USERNAME: $CONTAINER_USERNAME
-        ARG_USER_UID: $CONTAINER_USER_UID
-        ARG_USER_GID: $CONTAINER_USER_GID
-        ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
-    # Sets the image name for the built image
+    image: $IMAGE_NAME:$IMAGE_TAG
+    ports:
+      - "$HOST_API_SVC_PORT:$CONTAINER_API_SVC_PORT"
+    entrypoint:
+      - "python3.9"
+      - "-m"
+      - "fastchat.serve.openai_api_server"
+      - "--controller-address"
+      - "http://fastchat-controller:$CONTAINER_CONTROLLER_PORT"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "$CONTAINER_API_SVC_PORT"
+
+  fastchat-web-server:
     image: $IMAGE_NAME:$IMAGE_TAG
     ports:
       - "$HOST_WEB_SVC_PORT:$CONTAINER_WEB_SVC_PORT"
     entrypoint:
       - "python3.9"
       - "-m"
-      - "fastchat.serve.openai_api_server"
-      - "--controller-address"
+      - "fastchat.serve.gradio_web_server_multi"
+      - "--controller-url"
       - "http://fastchat-controller:$CONTAINER_CONTROLLER_PORT"
       - "--host"
       - "0.0.0.0"

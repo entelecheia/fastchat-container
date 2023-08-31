@@ -1,1 +1,2 @@
+plotly
 fschat[model_worker,webui,llm_judge]
