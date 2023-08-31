@@ -14,7 +14,7 @@ services:
     # Sets the image name for the built image
     image: $IMAGE_NAME:$IMAGE_TAG
     ports:
-      - "$CONTROLLER_PORT:$CONTROLLER_PORT"
+      - "$CONTAINER_CONTROLLER_PORT:$CONTAINER_CONTROLLER_PORT"
     entrypoint:
       - "python3.9"
       - "-m"
@@ -22,7 +22,7 @@ services:
       - "--host"
       - "0.0.0.0"
       - "--port"
-      - "$CONTROLLER_PORT"
+      - "$CONTAINER_CONTROLLER_PORT"
 
   fastchat-model-worker:
     build:
@@ -35,7 +35,7 @@ services:
         ARG_USER_GID: $CONTAINER_USER_GID
         ARG_WORKSPACE_ROOT: $CONTAINER_WORKSPACE_ROOT
     volumes:
-      - "$HOST_HUGGINGFACE_CACHE_DIR:/home/$USERNAME/.cache/huggingface"
+      - "$HOST_HF_HOME:/home/$USERNAME/.cache/huggingface"
     image: $IMAGE_NAME:$IMAGE_TAG
     entrypoint:
       - "python3.9"
@@ -46,20 +46,20 @@ services:
       - "--model-path"
       - "${FASTCHAT_WORKER_MODEL_PATH:-lmsys/vicuna-7b-v1.3}"
       - "--worker-address"
-      - "http://fastchat-model-worker:$MODEL_WORKER_PORT"
+      - "http://fastchat-model-worker:$CONTAINER_MODEL_WORKER_PORT"
       - "--controller-address"
-      - "http://fastchat-controller:$CONTROLLER_PORT"
+      - "http://fastchat-controller:$CONTAINER_MODEL_WORKER_PORT"
       - "--host"
       - "0.0.0.0"
       - "--port"
-      - "$MODEL_WORKER_PORT"
+      - "$CONTAINER_MODEL_WORKER_PORT"
     deploy:
       resources:
         reservations:
           devices:
             # Reserves the specified GPU for the container
             - driver: nvidia
-              device_ids: ["${CUDA_DEVICE_ID}"]
+              device_ids: ["${CONTAINER_CUDA_DEVICE_ID}"]
               capabilities: [gpu]
 
   fastchat-api-server:
@@ -75,17 +75,17 @@ services:
     # Sets the image name for the built image
     image: $IMAGE_NAME:$IMAGE_TAG
     ports:
-      - "$HOST_WEB_SVC_PORT:$WEB_SVC_PORT"
+      - "$HOST_WEB_SVC_PORT:$CONTAINER_WEB_SVC_PORT"
     entrypoint:
       - "python3.9"
       - "-m"
       - "fastchat.serve.openai_api_server"
       - "--controller-address"
-      - "http://fastchat-controller:$CONTROLLER_PORT"
+      - "http://fastchat-controller:$CONTAINER_CONTROLLER_PORT"
       - "--host"
       - "0.0.0.0"
       - "--port"
-      - "$WEB_SVC_PORT"
+      - "$CONTAINER_WEB_SVC_PORT"
 
 networks:
   default:
