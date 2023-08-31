@@ -133,9 +133,9 @@ else
 fi
 
 # prepare host directories
-if [[ -n "${HOST_HUGGINGFACE_CACHE_DIR}" ]] && [[ ! -d "${HOST_HUGGINGFACE_CACHE_DIR}" ]]; then
-    echo "Creating host directory ${HOST_HUGGINGFACE_CACHE_DIR}"
-    mkdir -p "${HOST_HUGGINGFACE_CACHE_DIR}"
+if [[ -n "${HOST_HF_HOME}" ]] && [[ ! -d "${HOST_HF_HOME}" ]]; then
+    echo "Creating host directory ${HOST_HF_HOME}"
+    mkdir -p "${HOST_HF_HOME}"
 fi
 
 # run docker-compose
